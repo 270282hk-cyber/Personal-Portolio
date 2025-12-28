@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Chloe Shinhui Wang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="site-title">Chloe Shinhui Wang</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="index.html#hobbies">My Hobbies</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1>My Projects</h1>
+            <p>Showcasing my work and passion for development.</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="projects-container">
+            <nav class="vertical-nav">
+                <h3>Projects</h3>
+                <ul>
+                    <li><a href="#project-one">Project One</a></li>
+                    <li><a href="#project-two">Project Two</a></li>
+                    <li><a href="#project-three">Project Three</a></li>
+                </ul>
+            </nav>
+            <section id="projects" class="section-content projects-detail-content">
+                <h2>Detailed Projects</h2>
+                <div class="project-grid">
+                    <div class="project-item" id="project-one">
+                        <img src="https://via.placeholder.com/300" alt="Project One Placeholder Image">
+                        <h3>Project One</h3>
+                        <p>A description of my first project, highlighting the technologies used and its purpose.</p>
+                        <a href="#" class="project-link">View Project</a>
+                    </div>
+                    <div class="project-item" id="project-two">
+                        <img src="https://via.placeholder.com/300" alt="Project Two Placeholder Image">
+                        <h3>Project Two</h3>
+                        <p>A description of my second project, detailing its features and my contributions.</p>
+                        <a href="#" class="project-link">View Project</a>
+                    </div>
+                    <div class="project-item" id="project-three">
+                        <img src="https://via.placeholder.com/300" alt="Project Three Placeholder Image">
+                        <h3>Project Three</h3>
+                        <p>A description of my third project.</p>
+                        <a href="#" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Chloe Shinhui Wang</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.vertical-nav ul li a');
+            const projectSections = document.querySelectorAll('.project-item');
+
+            const highlightNavLink = () => {
+                let currentProject = '';
+
+                projectSections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; // Adjust offset as needed
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                        currentProject = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(currentProject)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            // Highlight on scroll
+            window.addEventListener('scroll', highlightNavLink);
+
+            // Highlight on page load (for direct links with hash)
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    // Smooth scroll to element
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header/nav
+                        behavior: 'smooth'
+                    });
+                }
+                // Manually highlight the link since scroll event might not fire immediately
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === window.location.hash) {
+                        link.classList.add('active');
+                    }
+                });
+            } else {
+                // Highlight the first item if no hash and at top
+                if (projectSections.length > 0 && pageYOffset === 0) {
+                    navLinks[0].classList.add('active');
+                }
+            }
+
+            // Initial highlight call (for pages loaded without hash but not scrolled yet)
+            highlightNavLink();
+
+            // Smooth scroll for vertical nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // Adjust for fixed header/nav
+                            behavior: 'smooth'
+                        });
+                        // Update URL hash without page reload for consistent behavior
+                        history.pushState(null, null, link.getAttribute('href'));
+                        highlightNavLink(); // Re-evaluate active state after click
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

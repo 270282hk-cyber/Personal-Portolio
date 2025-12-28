@@ -1,0 +1,5 @@
+<script>start("/Users/chloewang/my_webpage/assets/");</script>
+<script>onHasParentDirectory();</script>
+<script>addRow("css","css",1,128,"128 B",1763991219,"24/11/2025, 21:33:39");</script>
+<script>addRow("images","images",1,128,"128 B",1763990587,"24/11/2025, 21:23:07");</script>
+<script>addRow("js","js",1,128,"128 B",1763991192,"24/11/2025, 21:33:12");</script>
